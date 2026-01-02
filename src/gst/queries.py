@@ -73,7 +73,7 @@ class Queries:
                     "https://api.github.com/graphql",
                     headers=headers,
                     json={"query": generated_query},
-                    timeout=60,
+                    timeout=3600,
                 )
                 return rr.json()
 
@@ -123,7 +123,7 @@ class Queries:
                         f"https://api.github.com/{path}",
                         headers=headers,
                         params=tuple(params.items()),
-                        timeout=60,
+                        timeout=3600,
                     )
                     if rr.status_code == HTTP_ACCEPTED:
                         logger.warning(f"{path} returned 202 ACCEPTED. Retrying...")
