@@ -1,0 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Johann Christensen
+#
+# SPDX-License-Identifier: MIT
+rules:
+  unpinned-uses:
+    disable: true
