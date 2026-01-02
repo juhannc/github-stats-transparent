@@ -29,9 +29,9 @@ jobs:
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          EXCLUDED: ${{ env.EXCLUDED }}
-          EXCLUDED_LANGS: ${{ env.EXCLUDED_LANGS }}
-          COUNT_STATS_FROM_FORKS: ${{ env.COUNT_STATS_FROM_FORKS }}
+          EXCLUDED: ${{ vars.EXCLUDED }}
+          EXCLUDED_LANGS: ${{ vars.EXCLUDED_LANGS }}
+          COUNT_STATS_FROM_FORKS: ${{ vars.COUNT_STATS_FROM_FORKS }}
 
       - name: Commit to the output branch of repo
 
