@@ -69,11 +69,10 @@ class Queries:
                     "Making GraphQL request (using requests) for query: "
                     f"{generated_query}"
                 )
-                rr = requests.post(  # noqa: ASYNC210
+                rr = requests.post(  # noqa: ASYNC210, S113
                     "https://api.github.com/graphql",
                     headers=headers,
                     json={"query": generated_query},
-                    timeout=3600,
                 )
                 return rr.json()
 
@@ -119,11 +118,10 @@ class Queries:
                         f"Falling back to making REST request with requests to {path} "
                         f"with params {params}"
                     )
-                    rr = requests.get(  # noqa: ASYNC210
+                    rr = requests.get(  # noqa: ASYNC210, S113
                         f"https://api.github.com/{path}",
                         headers=headers,
                         params=tuple(params.items()),
-                        timeout=3600,
                     )
                     if rr.status_code == HTTP_ACCEPTED:
                         logger.warning(f"{path} returned 202 ACCEPTED. Retrying...")
