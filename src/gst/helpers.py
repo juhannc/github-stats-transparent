@@ -38,7 +38,9 @@ async def generate_overview(s: Stats) -> None:
 
     generate_output_folder()
     (ROOT_FOLDER / "generated/overview.svg").write_text(output, encoding="utf-8")
-    logger.info("Generated overview.svg badge.")
+    logger.info(
+        f"Generated overview.svg badge at: {ROOT_FOLDER / 'generated/overview.svg'}."
+    )
 
 
 async def generate_languages(s: Stats) -> None:
@@ -85,4 +87,6 @@ fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
 
     generate_output_folder()
     (ROOT_FOLDER / "generated/languages.svg").write_text(output, encoding="utf-8")
-    logger.info("Generated languages.svg badge.")
+    logger.info(
+        f"Generated languages.svg badge at: {ROOT_FOLDER / 'generated/languages.svg'}."
+    )
