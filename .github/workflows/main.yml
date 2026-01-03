@@ -45,7 +45,7 @@ jobs:
           if [ "$branch" = "main" ]; then
             target=output
           else
-            target="${branch}/output"
+            target="${branch}-output"
           fi
           echo "Pushing generated files to $target"
           # Copy generated to a safe temp location before switching branches
