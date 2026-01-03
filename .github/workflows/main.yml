@@ -73,5 +73,7 @@ jobs:
           # Commit and push the generated content (or an empty branch)
           git add generated || true
           git commit -m 'Update generated files' || echo
+          # Ensure git can authenticate when pushing from Actions
+          git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
           git push origin "$target" -f
           rm -rf "${tmpdir}"
