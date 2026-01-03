@@ -48,7 +48,7 @@ jobs:
             target="${branch}/output"
           fi
           echo "Pushing generated files to $target"
-          git checkout "$target" 2>/dev/null || (git checkout --orphan "$target" && git rm -rf . && git checkout main -- generated/)
+          git checkout "$target" 2>/dev/null || (git checkout --orphan "$target" && git rm -rf . && git checkout ${branch} -- generated/)
           # "echo" returns true so the build succeeds, even if no changed files
           git commit -m 'Update generated files' || echo
           git push origin "$target" -f

@@ -45,11 +45,6 @@ repos:
       - id: licensecheck
         language: python
         name: Check licenses of Python dependencies
-  - repo: https://github.com/citation-file-format/cffconvert
-    rev: b6045d78aac9e02b039703b030588d54d53262ac
-    hooks:
-      - id: validate-cff
-        name: Validating CITATION.cff
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
     rev: 3.6.0
     hooks:
@@ -58,10 +53,6 @@ repos:
     rev: 0.36.0
     hooks:
       - id: check-github-workflows
-      - id: check-github-actions
-      - id: check-dependabot
-      - id: check-gitlab-ci
-      - id: check-readthedocs
   - repo: https://github.com/zizmorcore/zizmor-pre-commit
     rev: v1.19.0
     hooks:

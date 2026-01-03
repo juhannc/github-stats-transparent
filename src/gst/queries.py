@@ -109,6 +109,7 @@ class Queries:
 
                 result = await rcm.json()
                 if result is not None:
+                    logger.info(f"REST request to {path} successful.")
                     return result
             except:  # noqa: E722
                 logger.warning("aiohttp failed for rest query")
