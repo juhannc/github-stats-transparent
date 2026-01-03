@@ -1,0 +1,111 @@
+# SPDX-FileCopyrightText: 2026 Johann Christensen
+#
+# SPDX-License-Identifier: MIT
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-ast
+      - id: check-builtin-literals
+      - id: check-case-conflict
+      - id: check-docstring-first
+      - id: check-executables-have-shebangs
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
+      - id: check-toml
+      - id: check-yaml
+      - id: debug-statements
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: [--fix=lf]
+        exclude: docs/make.bat
+      - id: trailing-whitespace
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.11.0
+    hooks:
+      - id: commitizen
+      - id: commitizen-branch
+        stages: [pre-push]
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.9.21
+    hooks:
+      - id: uv-sync
+        name: Synchronize uv.lock with pyproject.toml
+      - id: uv-lock
+        name: Check uv.lock is up to date
+  - repo: https://github.com/fsfe/reuse-tool
+    rev: v6.2.0
+    hooks:
+      - id: reuse
+        name: Check license headers (REUSE)
+  - repo: https://github.com/FHPythonUtils/LicenseCheck
+    rev: 2025.1.0
+    hooks:
+      - id: licensecheck
+        language: python
+        name: Check licenses of Python dependencies
+  - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
+    rev: 3.6.0
+    hooks:
+      - id: editorconfig-checker
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.36.0
+    hooks:
+      - id: check-github-workflows
+  - repo: https://github.com/zizmorcore/zizmor-pre-commit
+    rev: v1.19.0
+    hooks:
+      - id: zizmor
+        name: Lint GitHub workflow files (zizmor)
+        args: ["--fix=all"]
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.3.0
+    hooks:
+      - id: flake8
+        name: Linting Python code (flake8)
+        additional_dependencies:
+          - flake8-docstrings
+          - flake8-docstrings-complete
+          - flake8-pyproject
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.10
+    hooks:
+      - id: ruff-check
+        name: Linting Python code (ruff)
+        args: [--fix]
+      - id: ruff-format
+        name: Formatting Python code (ruff)
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.1
+    hooks:
+      - id: codespell
+        name: Fixing common spelling mistakes
+        args:
+          - --write-changes
+        exclude: uv.lock|^LICENSES/
+  - repo: https://github.com/PyCQA/docformatter
+    rev: v1.7.7
+    hooks:
+      - id: docformatter
+        name: Fixing docstring formatting
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.47.0
+    hooks:
+      - id: markdownlint
+        name: Fixing markdown linting errors
+        args: [--disable, MD013, MD033, --fix]
+  - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+    rev: v2.15.0
+    hooks:
+      - id: pretty-format-yaml
+        args: [--autofix, --indent, "2", --offset, "2", --preserve-quotes]
+      - id: pretty-format-toml
+        args: [--autofix]
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.19.1
+    hooks:
+      - id: mypy
+        name: Static typechecking (mypy)
+        exclude: ^tests/
+        additional_dependencies: ["types-requests"]
