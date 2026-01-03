@@ -48,7 +48,30 @@ jobs:
             target="${branch}/output"
           fi
           echo "Pushing generated files to $target"
-          git checkout "$target" 2>/dev/null || (git checkout --orphan "$target" && git rm -rf . && pwd && ls -alFh && git checkout ${branch} -- generated/)
-          # "echo" returns true so the build succeeds, even if no changed files
+          # Copy generated to a safe temp location before switching branches
+          tmpdir=$(mktemp -d)
+          if [ -d generated ]; then
+            cp -a generated "${tmpdir}"/generated
+          fi
+
+          # Switch to target branch if it exists, otherwise create an orphan branch
+          if git rev-parse --verify --quiet "refs/heads/$target"; then
+            git checkout "$target"
+          else
+            git checkout --orphan "$target"
+          fi
+
+          # Remove all files tracked in this branch (keep .git)
+          git rm -rf . || true
+
+          # Restore generated/ from tmp if present
+          if [ -d "${tmpdir}/generated" ]; then
+            mkdir -p generated
+            cp -a "${tmpdir}/generated/"* generated/ || true
+          fi
+
+          # Commit and push the generated content (or an empty branch)
+          git add generated || true
           git commit -m 'Update generated files' || echo
           git push origin "$target" -f
+          rm -rf "${tmpdir}"
