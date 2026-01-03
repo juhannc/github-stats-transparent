@@ -4,7 +4,6 @@
 name: Generate Stats Images
 on:
   push:
-    branches: [main]
   schedule:
     - cron: "0 0 * * 1"
   workflow_dispatch:
@@ -40,7 +39,16 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
           git commit -m 'temp commit' || echo
-          git checkout output 2>/dev/null || git checkout --orphan output && git rm -rf . && git checkout main -- generated/
+          # Use pre-evaluated branch name and fail fast on errors
+          set -euo pipefail
+          branch="${GITHUB_REF_NAME}"
+          if [ "$branch" = "main" ]; then
+            target=output
+          else
+            target="${branch}/output"
+          fi
+          echo "Pushing generated files to $target"
+          git checkout "$target" 2>/dev/null || (git checkout --orphan "$target" && git rm -rf . && git checkout main -- generated/)
           # "echo" returns true so the build succeeds, even if no changed files
           git commit -m 'Update generated files' || echo
-          git push origin output -f
+          git push origin "$target" -f
