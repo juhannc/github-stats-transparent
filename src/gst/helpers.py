@@ -4,10 +4,13 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 """Module to help generate SVG images for GitHub statistics."""
 
+import logging
 import re
 
 from gst import ROOT_FOLDER
 from gst.stats import Stats
+
+logger = logging.getLogger(__name__)
 
 
 def generate_output_folder() -> None:
@@ -35,6 +38,7 @@ async def generate_overview(s: Stats) -> None:
 
     generate_output_folder()
     (ROOT_FOLDER / "generated/overview.svg").write_text(output, encoding="utf-8")
+    logger.info("Generated overview.svg badge.")
 
 
 async def generate_languages(s: Stats) -> None:
@@ -81,3 +85,4 @@ fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
 
     generate_output_folder()
     (ROOT_FOLDER / "generated/languages.svg").write_text(output, encoding="utf-8")
+    logger.info("Generated languages.svg badge.")

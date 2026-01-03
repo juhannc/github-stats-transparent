@@ -53,6 +53,7 @@ async def main() -> None:
             consider_forked_repos=consider_forked_repos,
         )
         await asyncio.gather(generate_languages(s), generate_overview(s))
+    logger.info("Badge generation completed.")
 
 
 if __name__ == "__main__":
